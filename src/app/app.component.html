@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2" style="margin: 3px;">
       <!-- Add a Form with the following Inputs (and Validators)
            1) Mail address (should not be empty and should be an email address)
            2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
@@ -13,6 +13,35 @@
            Upon submitting the form, you should simply print the Value of the Form to the Console.
            Optionally, display it in your template.
       -->
+      <form class="needs-validation" (ngSubmit)="OnSubmit()" #MainForm="ngForm" novalidate>
+        <div class="form-row">
+          <div class="col mb-1">
+            <input placeholder="Email address" type="email" class="form-control" ngModel name="Email" email required #Email="ngModel">
+            <span class="badge badge-pill badge-danger" *ngIf="Email.invalid && Email.touched">Please enter valid email!</span>
+          </div>
+          <div class="col mb-1">
+            <input placeholder="Password" type="password" class="form-control" ngModel name="Password" required #Password="ngModel">
+            <span class="badge badge-pill badge-danger" *ngIf="Password.invalid && Password.touched">Please enter valid password!</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col mb-1">
+            <select class="custom-select" id="validationCustom04" [ngModel]="DefaultSubscription" name="Subscription" required>
+              <option *ngFor="let item of ListOfOptions; let i=index" [value]="i">{{item}}</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-outline-primary" style="margin-top: 3px;" type="submit">Submit</button>
+      </form>
+
     </div>
+  </div>
+</div>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h3 class="display-4">Submitted value</h3>
+    <p class="lead" *ngFor="let item of SubmittedFormValue | keyvalue">{{item.key}}: {{item.value}}</p>
+    <p class="lead-secondary" *ngIf="MainForm.valid; else InvalidForm">Form is valid</p>
+    <ng-template #InvalidForm>Form is not valid</ng-template>
   </div>
 </div>
