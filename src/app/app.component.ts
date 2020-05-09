@@ -13,6 +13,11 @@ export class AppComponent {
 
   @ViewChild('MainForm') submittedForm: NgForm;
   OnSubmit() {
-    this.SubmittedFormValue = this.submittedForm.value;
+    if (this.SubmittedFormValue) {
+      this.SubmittedFormValue = null;
+    }
+    if (this.submittedForm.valid) {
+      this.SubmittedFormValue = this.submittedForm.value;
+    }
   }
 }

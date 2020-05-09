@@ -17,11 +17,11 @@
         <div class="form-row">
           <div class="col mb-1">
             <input placeholder="Email address" type="email" class="form-control" ngModel name="Email" email required #Email="ngModel">
-            <span class="badge badge-pill badge-danger" *ngIf="Email.invalid && Email.touched">Please enter valid email!</span>
+            <span class="badge badge-pill badge-danger" *ngIf="Email.invalid && (Email.touched || MainForm.submitted)">Please enter valid email!</span>
           </div>
           <div class="col mb-1">
             <input placeholder="Password" type="password" class="form-control" ngModel name="Password" required #Password="ngModel">
-            <span class="badge badge-pill badge-danger" *ngIf="Password.invalid && Password.touched">Please enter valid password!</span>
+            <span class="badge badge-pill badge-danger" *ngIf="Password.invalid && (Password.touched || MainForm.submitted)">Please enter valid password!</span>
           </div>
         </div>
         <div class="form-row">
@@ -41,7 +41,10 @@
   <div class="container">
     <h3 class="display-4">Submitted value</h3>
     <p class="lead" *ngFor="let item of SubmittedFormValue | keyvalue">{{item.key}}: {{item.value}}</p>
-    <p class="lead-secondary" *ngIf="MainForm.valid; else InvalidForm">Form is valid</p>
-    <ng-template #InvalidForm>Form is not valid</ng-template>
+    <p class="lead-secondary" *ngIf="MainForm.valid; else InvalidForm">You can submit!</p>
+    <ng-template #InvalidForm>You cannot submit!</ng-template>
   </div>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="MainForm.invalid && MainForm.submitted">
+ Please check the fields!
 </div>
